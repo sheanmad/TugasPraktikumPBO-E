@@ -12,7 +12,7 @@ import PraktikumPBO.Tugas2.tugasDua.Ruang.Balok;
  * @author pc msi
  */
 public class PersegiPanjang extends Tugas2 implements MenghitungBidang{
-    private double panjang, lebar, tinggi;
+    private double panjang, lebar;
 
     public PersegiPanjang(double panjang, double lebar){
         this.panjang=panjang;
