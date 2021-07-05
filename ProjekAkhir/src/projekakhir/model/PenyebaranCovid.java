@@ -14,7 +14,7 @@ public class PenyebaranCovid extends Model{
     public int getJumlahData(){
         try {
             int jmlData = 0;
-            String query = "Select * from movie";
+            String query = "Select * from data_sampel";
             stmt = koneksi.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
             while(resultSet.next()){
@@ -26,20 +26,20 @@ public class PenyebaranCovid extends Model{
         }
     }
     
-    public String[][] getMovie(){
+    public String[][] getPenyebaranCovid(){
         try {
             int x = 0;
             String data[][] = new String[this.getJumlahData()][5];
-            String query = "SELECT * FROM movie";
+            String query = "SELECT * FROM data_sampel";
             
             ResultSet resultSet = stmt.executeQuery(query);
             
             while (resultSet.next()){
-                data[x][0] = resultSet.getString("judul");
-                data[x][1] = resultSet.getString("alur");
-                data[x][2] = resultSet.getString("penokohan");
-                data[x][3] = resultSet.getString("akting");
-                data[x][4] = resultSet.getString("nilai");
+                data[x][0] = resultSet.getString("nama_daerah");
+                data[x][1] = resultSet.getString("confirmed");
+                data[x][2] = resultSet.getString("active");
+                data[x][3] = resultSet.getString("deaths");
+                data[x][4] = resultSet.getString("recovered");
                 x++;
             }
             return data;
@@ -48,48 +48,48 @@ public class PenyebaranCovid extends Model{
         }
     }
 
-    public String[] getMovieByJudul(String judul){
+    public String[] getPenyebaranCovidByNamaDaerah(String nama_daerah){
         String data[] = new String[5];
         try{
-            String query = "SELECT * FROM movie WHERE judul ='"+judul+"'";
+            String query = "SELECT * FROM data_sampel WHERE nama_daerah ='"+nama_daerah+"'";
             ResultSet resultSet = stmt.executeQuery(query);
             resultSet.next();
-            data[0] = resultSet.getString("judul");
-            data[1] = resultSet.getString("alur");
-            data[2] = resultSet.getString("penokohan");
-            data[3] = resultSet.getString("akting");
-            data[4] = resultSet.getString("nilai");
+            data[0] = resultSet.getString("nama_daerah");
+            data[1] = resultSet.getString("confirmed");
+            data[2] = resultSet.getString("active");
+            data[3] = resultSet.getString("deaths");
+            data[4] = resultSet.getString("recovered");
             return data;
         }catch(SQLException e) {
             return null;
         }
     }
 
-    public void createMovie(String judul, double alur, double penokohan, double akting, double nilai){
+    public void createPenyebaranCovid(String nama_daerah, double confirmed, double active, double deaths, double recovered){
         try{
-            String query = "INSERT INTO movie VALUES ('"+judul+"','"+alur+"','"+penokohan+"','"+akting+"','"+nilai+"')";
+            String query = "INSERT INTO data_sampel VALUES ('"+nama_daerah+"','"+confirmed+"','"+active+"','"+deaths+"','"+recovered+"')";
             stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(null, "Data Berhasil Dimasukkan");
+            JOptionPane.showMessageDialog(null, "Data Added");
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
     
-    public void updateMovie(String judul, double alur, double penokohan, double akting, double nilai){
+    public void updatePenyebaranCovid(String nama_daerah, double confirmed, double active, double deaths, double recovered){
         try{
-            String query = "UPDATE movie SET judul = '"+judul+"'"+", alur ="+alur+", penokohan = "+penokohan+", akting = "+akting+", nilai = "+nilai+" WHERE judul = "+ "'"+judul+"'";
+            String query = "UPDATE data_sampel SET nama_daerah = '"+nama_daerah+"'"+", confirmed ="+confirmed+", active = "+active+", deaths = "+deaths+", recovered = "+recovered+" WHERE nama_daerah = "+ "'"+nama_daerah+"'";
             stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(null, "Data Berhasil Diupdate");
+            JOptionPane.showMessageDialog(null, "Data Updated");
         }catch (SQLException e ){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
     
-    public void deleteMovie(String judul){
+    public void deletePenyebaranCovid(String nama_daerah){
         try{
-            String query = "DELETE FROM movie WHERE judul = '"+judul+"'";
+            String query = "DELETE FROM data_sampel WHERE nama_daerah = '"+nama_daerah+"'";
             stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
+            JOptionPane.showMessageDialog(null, "Data Deleted");
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

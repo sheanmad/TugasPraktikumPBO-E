@@ -14,7 +14,7 @@ public class Model {
     public Statement stmt;
 
     public Model() {
-        this.DBurl = "jdbc:mysql://localhost/movie_db";
+        this.DBurl = "jdbc:mysql://localhost/penyebaran_covid19_diy";
         System.out.println(this.DBurl);
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

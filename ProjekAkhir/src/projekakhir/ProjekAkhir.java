@@ -8,8 +8,8 @@ import projekakhir.view.View;
 public class ProjekAkhir {
 
     public static void main(String[] args) {
-        PenyebaranCovid m = new PenyebaranCovid();
+        PenyebaranCovid pcovid = new PenyebaranCovid();
         View v = new View();
-        Controller controller = new Controller(m, v);
+        Controller controller = new Controller(pcovid, v);
     }
 }
