@@ -7,10 +7,10 @@ import java.sql.ResultSet;
 import projekakhir.modeldatabase.Model;
 
 public class PenyebaranCovid extends Model{
-     public PenyebaranCovid() {
-       super();
+    public PenyebaranCovid() {
+        super();
     }
-    
+
     public int getJumlahData(){
         try {
             int jmlData = 0;
@@ -48,6 +48,27 @@ public class PenyebaranCovid extends Model{
         }
     }
 
+    public double[][] getPenyebaranCovidWP(){
+        try {
+            int x = 0;
+            double data[][] = new double[this.getJumlahData()][4];
+            String query = "SELECT * FROM data_sampel";
+            
+            ResultSet resultSet = stmt.executeQuery(query);
+            
+            while (resultSet.next()){
+                data[x][0] = resultSet.getDouble("confirmed");
+                data[x][1] = resultSet.getDouble("active");
+                data[x][2] = resultSet.getDouble("deaths");
+                data[x][3] = resultSet.getDouble("recovered");
+                x++;
+            }
+            return data;
+        }catch (Exception e) {
+            return null;
+        }
+    }
+
     public String[] getPenyebaranCovidByNamaDaerah(String nama_daerah){
         String data[] = new String[5];
         try{
@@ -64,16 +85,6 @@ public class PenyebaranCovid extends Model{
             return null;
         }
     }
-
-    public void createPenyebaranCovid(String nama_daerah, double confirmed, double active, double deaths, double recovered){
-        try{
-            String query = "INSERT INTO data_sampel VALUES ('"+nama_daerah+"','"+confirmed+"','"+active+"','"+deaths+"','"+recovered+"')";
-            stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(null, "Data Added");
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
     
     public void updatePenyebaranCovid(String nama_daerah, double confirmed, double active, double deaths, double recovered){
         try{
@@ -81,16 +92,6 @@ public class PenyebaranCovid extends Model{
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Data Updated");
         }catch (SQLException e ){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
-    
-    public void deletePenyebaranCovid(String nama_daerah){
-        try{
-            String query = "DELETE FROM data_sampel WHERE nama_daerah = '"+nama_daerah+"'";
-            stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(null, "Data Deleted");
-        }catch(SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
